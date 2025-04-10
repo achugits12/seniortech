@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Senior Tech Learning</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0fff0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .btn-nav {
+            font-size: 18px;
+            padding: 12px 25px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="text"], input[type="password"] {
+            font-size: 18px;
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+        }
+
+        audio {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div id="login" class="container">
+        <h1>📋 Login</h1>
+        <input type="text" placeholder="Username" id="username" />
+        <input type="password" placeholder="Password" id="password" />
+        <button onclick="login()">Login</button>
+        <p class="instructions">Please enter your username and password to get started.</p>
+    </div>
+
+    <!-- Index Page -->
+    <div id="index" class="container hidden">
+        <h1>Welcome to Senior Tech Learning</h1>
+        <p>Choose a topic to start learning:</p>
+        <button class="btn-nav" onclick="showSection('dashboard')">Dashboard</button>
+        <button class="btn-nav" onclick="showSection('courses')">Courses</button>
+        <button class="btn-nav" onclick="showSection('help')">Help</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <h1>📊 Dashboard</h1>
+        <p>Track your progress:</p>
+        <table>
+            <thead><tr><th>Course</th><th>Status</th></tr></thead>
+            <tbody><tr><td>Using Internet</td><td>Started</td></tr></tbody>
+        </table>
+        <button class="btn-nav" onclick="showSection('index')">Back to Home</button>
+    </div>
+
+    <!-- Courses -->
+    <div id="courses" class="container hidden">
+        <h1>📚 Courses</h1>
+        <button class="btn-nav" onclick="showSection('internet')">Using the Internet</button>
+        <button class="btn-nav" onclick="showSection('smartphone')">Using a Smartphone</button>
+        <button class="btn-nav" onclick="showSection('email')">Sending an Email</button>
+        <button class="btn-nav" onclick="showSection('index')">Back to Home</button>
+    </div>
+
+    <!-- Help -->
+    <div id="help" class="container hidden">
+        <h1>🆘 Help</h1>
+        <input type="text" id="voiceInput" placeholder="Ask your question here...">
+        <button class="btn-nav" onclick="startVoiceInput()">🎤 Ask with Voice</button>
+        <button class="btn-nav" onclick="showSection('index')">Back to Home</button>
+    </div>
+
+    <!-- Internet Course -->
+    <div id="internet" class="container hidden">
+        <h1>📶 Using the Internet</h1>
+        <p>Instructions:</p>
+        <ul>
+            <li>Open your browser (like Chrome).</li>
+            <li>Click on the address bar at the top.</li>
+            <li>Type the website address or keywords to search.</li>
+            <li>Press Enter.</li>
+        </ul>
+        <audio controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+        <input type="text" placeholder="Type here or use voice" id="internetInput">
+        <button class="btn-nav" onclick="startVoiceInput('internetInput')">🎤 Speak</button>
+        <button class="btn-nav" onclick="showSection('courses')">Back to Courses</button>
+    </div>
+
+    <!-- Smartphone Course -->
+    <div id="smartphone" class="container hidden">
+        <h1>📱 Using a Smartphone</h1>
+        <ul>
+            <li>Tap the phone icon on your home screen.</li>
+            <li>Tap the keypad or contacts icon.</li>
+            <li>Dial the number or choose a contact.</li>
+            <li>Press the green call button.</li>
+        </ul>
+        <audio controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        </audio>
+        <p>Redirecting to phone app in 2 minutes...</p>
+        <script>setTimeout(() => {
+        window.location.href = 'tel:';
+      }, 120000);</script>
+        <button class="btn-nav" onclick="showSection('courses')">Back to Courses</button>
+    </div>
+
+    <!-- Email Course -->
+    <div id="email" class="container hidden">
+        <h1>📧 Sending an Email</h1>
+        <ul>
+            <li>Click below to open Gmail.</li>
+            <li>Click on "Compose".</li>
+            <li>Enter recipient, subject, and message.</li>
+        </ul>
+        <audio controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+        </audio>
+        <input type="text" placeholder="Enter subject or message" id="emailInput">
+        <button class="btn-nav" onclick="startVoiceInput('emailInput')">🎤 Speak</button>
+        <br><br>
+        <button class="btn-nav" onclick="window.open('https://mail.google.com', '_blank')">Go to Gmail</button>
+        <button class="btn-nav" onclick="showSection('courses')">Back to Courses</button>
+    </div>
+
+    <script>function showSection(id) {
+      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username && password) showSection('index');
+      else alert('Please enter both username and password.');
+    }
+
+    function startVoiceInput(targetId = 'voiceInput') {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById(targetId).value = transcript;
+      };
+      recognition.start();
+    }
+
+    // Start at login
+    showSection('login');</script>
+</body>
+</html>
